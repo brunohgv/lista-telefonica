@@ -9,4 +9,10 @@ angular
     {nome: "Adalberto", telefone: "99887878"},
     {nome: "Björn", telefone: "98698745"},
   ]
+
+  $scope.adicionarContato = function (contato) {
+    $scope.contatos.push(angular.copy(contato))
+    delete $scope.contato
+  }
+
 })

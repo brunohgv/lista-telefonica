@@ -27,6 +27,22 @@
           <th>{{contato.telefone}}</th>
         </tr>
       </table>
+      <form ng-enter="adicionarContato(contato)">
+        <input 
+          class="form form-control"
+          type="text"
+          aria-label="Input de nome"
+          placeholder="Nome"
+          ng-model="contato.nome">
+        <input
+          class="form form-control"
+          type="text"
+          aria-label="Input de telefone"
+          placeholder="Telefone"
+          ng-model="contato.telefone">
+        <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar</button>
+      </form>
+
     </div>
   </div>
 
