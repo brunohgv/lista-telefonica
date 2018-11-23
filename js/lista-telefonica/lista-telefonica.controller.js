@@ -19,7 +19,7 @@ angular
         $scope.contatoForm.$setPristine()
       })
       .catch(err => {
-        alert("Erro " + err.status + ": " + err.statusText)
+        $scope.erro = err.status + ": " + err.statusText
       })
   }
 
@@ -46,8 +46,9 @@ angular
       .then(response => {
         $scope.contatos = response.data
       })
-      .catch(error => {
-        alert("Erro " + error.status + ": " + error.statusText)
+      .catch(err => {
+        // alert("Erro " + error.status + ": " + error.statusText)
+        $scope.erroContatos = err.status + ": " + err.statusText
       })
   }
 
@@ -56,8 +57,9 @@ angular
       .then(response => {
         $scope.operadoras = response.data
       })
-      .catch(error => {
-        alert("Erro " + error.status + ": " + error.statusText)
+      .catch(err => {
+        // alert("Erro " + error.status + ": " + error.statusText)
+        $scope.erroOperadoras = err.status + ": " + err.statusText
       })
   }
 
