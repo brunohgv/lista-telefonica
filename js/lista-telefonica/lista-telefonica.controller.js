@@ -1,30 +1,25 @@
 angular
 .module("listaTelefonica")
-.controller("listaTelefonicaCtrl", function ($scope) {
+.controller("listaTelefonicaCtrl", function ($scope, $http) {
   $scope.titulo = "Lista Telefônica"
 
-  $scope.contatos = [
-    {nome: "Bruno", telefone: "99997-7577", data: new Date(), operadora: {nome: "Oi", codigo: 31, categoria: "Celular"}},
-    {nome: "Adriana", telefone: "98984-5545", data: new Date(), operadora: {nome: "NET", codigo: 21, categoria: "Fixo"}},
-    {nome: "Adalberto", telefone: "99885-7878", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}},
-    {nome: "Björn", telefone: "98698-5745", data: new Date(), operadora: {nome: "Oi", codigo: 31, categoria: "Celular"}},
-  ]
+  $scope.contatos = []
 
-  $scope.operadoras = [
-    {nome: "Oi", codigo: 31, categoria: "Celular"},
-    {nome: "Vivo", codigo: 15, categoria: "Celular"},
-    {nome: "Tim", codigo: 41, categoria: "Celular"},
-    {nome: "Claro", codigo: 21, categoria: "Celular"},
-    {nome: "GVT", codigo: 15, categoria: "Fixo"},
-    {nome: "NET", codigo: 21, categoria: "Fixo"},
-  ]
+  $scope.operadoras = []
 
   $scope.classeSelecionado = "selecionado"
 
   $scope.adicionarContato = function (contato) {
-    $scope.contatos.push(angular.copy(contato))
-    delete $scope.contato
-    $scope.contatoForm.$setPristine()
+    contato.data = new Date()
+    $http.post("http://localhost:3412/contatos", contato)
+      .then(() => {
+        carregarContatos()
+        delete $scope.contato
+        $scope.contatoForm.$setPristine()
+      })
+      .catch(err => {
+        alert("Erro " + err.status + ": " + err.statusText)
+      })
   }
 
   $scope.deletarContato = function (contatos) {
@@ -44,5 +39,28 @@ angular
     $scope.criterioDeOrdenacao = campo
     $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao
   }
+
+  const carregarContatos = function () {
+    $http.get("http://localhost:3412/contatos")
+      .then(response => {
+        $scope.contatos = response.data
+      })
+      .catch(error => {
+        alert("Erro " + error.status + ": " + error.statusText)
+      })
+  }
+
+  const carregarOperadoras = function () {
+    $http.get("http://localhost:3412/operadoras")
+      .then(response => {
+        $scope.operadoras = response.data
+      })
+      .catch(error => {
+        alert("Erro " + error.status + ": " + error.statusText)
+      })
+  }
+
+  carregarContatos();
+  carregarOperadoras();
 
 })
