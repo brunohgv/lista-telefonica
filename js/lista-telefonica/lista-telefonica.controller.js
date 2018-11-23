@@ -24,6 +24,7 @@ angular
   $scope.adicionarContato = function (contato) {
     $scope.contatos.push(angular.copy(contato))
     delete $scope.contato
+    $scope.contatoForm.$setPristine()
   }
 
   $scope.deletarContato = function (contatos) {

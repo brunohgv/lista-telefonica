@@ -37,7 +37,7 @@
       </table>
       <form name="contatoForm" ng-enter="adicionarContato(contato)">
         <input 
-          class="form form-control"
+          class="form-control"
           type="text"
           aria-label="Input de nome"
           placeholder="Nome"
@@ -45,28 +45,32 @@
           name="nome"
           ng-required="true">
         <input
-          class="form form-control"
+          class="form-control"
           type="text"
           aria-label="Input de telefone"
           placeholder="Telefone"
           ng-model="contato.telefone"
           name="telefone"
-          ng-required="true">
+          ng-required="true"
+          ng-minlength="8">
         <select
-          class="form form-control"
+          class="form-control"
           ng-model="contato.operadora"
           name="opcao"
           ng-options="operadora.nome group by operadora.categoria for operadora in operadoras"
           ng-required="true">
           <option value="">Selecione uma operadora</option>
         </select>
-        <div ng-show="contatoForm.nome.$invalid" class="alert alert-danger">
+        <div ng-if="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
           Por favor, preencha campo nome.
         </div>
-        <div ng-show="contatoForm.telefone.$invalid" class="alert alert-danger">
+        <div ng-if="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
           Por favor, preencha campo telefone.
         </div>
-        <div ng-show="contatoForm.opcao.$invalid" class="alert alert-danger">
+        <div ng-if="contatoForm.telefone.$error.minlength && contatoForm.telefone.$dirty" class="alert alert-danger">
+          O campo telefone deve ter no mínimo 8 caracteres
+        </div>
+        <div ng-if="contatoForm.opcao.$invalid && contatoForm.opcao.$dirty" class="alert alert-danger">
           Por favor, selecione a operadora.
         </div>
         <button class="btn btn-primary btn-block" ng-disabled="contatoForm.$invalid" ng-click="adicionarContato(contato)">Adicionar Contato</button>
