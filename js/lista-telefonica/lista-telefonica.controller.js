@@ -1,6 +1,6 @@
 angular
 .module("listaTelefonica")
-.controller("listaTelefonicaCtrl", function ($scope, $http) {
+.controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI, serialGenerator) {
   $scope.titulo = "Lista Telefônica"
 
   $scope.contatos = []
@@ -10,8 +10,9 @@ angular
   $scope.classeSelecionado = "selecionado"
 
   $scope.adicionarContato = function (contato) {
+    contato.serial = serialGenerator.generate()
     contato.data = new Date()
-    $http.post("http://localhost:3412/contatos", contato)
+    contatosAPI.salvarContato(contato)
       .then(() => {
         carregarContatos()
         delete $scope.contato
@@ -41,7 +42,7 @@ angular
   }
 
   const carregarContatos = function () {
-    $http.get("http://localhost:3412/contatos")
+    contatosAPI.getContatos()
       .then(response => {
         $scope.contatos = response.data
       })
@@ -51,7 +52,7 @@ angular
   }
 
   const carregarOperadoras = function () {
-    $http.get("http://localhost:3412/operadoras")
+    operadorasAPI.getOperadoras()
       .then(response => {
         $scope.operadoras = response.data
       })
