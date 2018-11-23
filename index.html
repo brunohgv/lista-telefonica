@@ -35,26 +35,29 @@
           </tr>
         </tbody>
       </table>
-      <form ng-enter="adicionarContato(contato)">
+      <form name="contatoForm" ng-enter="adicionarContato(contato)">
         <input 
           class="form form-control"
           type="text"
           aria-label="Input de nome"
           placeholder="Nome"
-          ng-model="contato.nome">
+          ng-model="contato.nome"
+          ng-required="true">
         <input
           class="form form-control"
           type="text"
           aria-label="Input de telefone"
           placeholder="Telefone"
-          ng-model="contato.telefone">
+          ng-model="contato.telefone"
+          ng-required="true">
         <select
           class="form form-control"
           ng-model="contato.operadora"
-          ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+          ng-options="operadora.nome group by operadora.categoria for operadora in operadoras"
+          ng-required="true">
           <option value="">Selecione uma operadora</option>
         </select>
-        <button class="btn btn-primary btn-block" ng-disabled="!contato.nome || !contato.telefone" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+        <button class="btn btn-primary btn-block" ng-disabled="contatoForm.$invalid" ng-click="adicionarContato(contato)">Adicionar Contato</button>
         <button class="btn btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="deletarContato(contatos)">Remover Selecionados</button>
       </form>
 
