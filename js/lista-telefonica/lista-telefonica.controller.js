@@ -1,6 +1,6 @@
 angular
 .module("listaTelefonica")
-.controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI) {
+.controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI, serialGenerator) {
   $scope.titulo = "Lista Telefônica"
 
   $scope.contatos = []
@@ -10,6 +10,7 @@ angular
   $scope.classeSelecionado = "selecionado"
 
   $scope.adicionarContato = function (contato) {
+    contato.serial = serialGenerator.generate()
     contato.data = new Date()
     contatosAPI.salvarContato(contato)
       .then(() => {
