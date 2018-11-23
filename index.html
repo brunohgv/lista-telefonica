@@ -17,23 +17,24 @@
   <div ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
       <h2 ng-bind="titulo"></h2>
-      <table class="table table-striped">
+      <table class="table">
         <thead>
           <tr>
+            <th></th>
             <th>Nome</th>
             <th>Telefone</th>
             <th>Operadora</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="contato in contatos">
+          <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos">
+            <td><input type="checkbox" ng-model="contato.selecionado"></td>
             <td>{{contato.nome}}</td>
             <td>{{contato.telefone}}</td>
             <td>{{contato.operadora.nome}}</td>
           </tr>
         </tbody>
       </table>
-      {{contato}}
       <form ng-enter="adicionarContato(contato)">
         <input 
           class="form form-control"
@@ -50,10 +51,11 @@
         <select
           class="form form-control"
           ng-model="contato.operadora"
-          ng-options="operadora.nome for operadora in operadoras">
+          ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
           <option value="">Selecione uma operadora</option>
         </select>
         <button class="btn btn-primary btn-block" ng-disabled="false" ng-click="adicionarContato(contato)">Adicionar</button>
+        <button class="btn btn-danger btn-block" ng-disabled="false" ng-click="deletarContato(contatos)">Remover Selecionados</button>
       </form>
 
     </div>
