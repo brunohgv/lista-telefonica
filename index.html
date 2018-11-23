@@ -17,15 +17,23 @@
   <div ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
       <h2 ng-bind="titulo"></h2>
-      <table class="table table-striped">
-        <tr>
-          <th>Nome</th>
-          <th>Telefone</th>
-        </tr>
-        <tr ng-repeat="contato in contatos">
-          <th>{{contato.nome}}</th>
-          <th>{{contato.telefone}}</th>
-        </tr>
+      <table ng-if="contatos.length > 0" class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Operadora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos">
+            <td><input type="checkbox" ng-model="contato.selecionado"></td>
+            <td>{{contato.nome}}</td>
+            <td>{{contato.telefone}}</td>
+            <td>{{contato.operadora.nome}}</td>
+          </tr>
+        </tbody>
       </table>
       <form ng-enter="adicionarContato(contato)">
         <input 
@@ -40,7 +48,14 @@
           aria-label="Input de telefone"
           placeholder="Telefone"
           ng-model="contato.telefone">
-        <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar</button>
+        <select
+          class="form form-control"
+          ng-model="contato.operadora"
+          ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+          <option value="">Selecione uma operadora</option>
+        </select>
+        <button class="btn btn-primary btn-block" ng-disabled="!contato.nome || !contato.telefone" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+        <button class="btn btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="deletarContato(contatos)">Remover Selecionados</button>
       </form>
 
     </div>
