@@ -42,6 +42,7 @@
           aria-label="Input de nome"
           placeholder="Nome"
           ng-model="contato.nome"
+          name="nome"
           ng-required="true">
         <input
           class="form form-control"
@@ -49,14 +50,25 @@
           aria-label="Input de telefone"
           placeholder="Telefone"
           ng-model="contato.telefone"
+          name="telefone"
           ng-required="true">
         <select
           class="form form-control"
           ng-model="contato.operadora"
+          name="opcao"
           ng-options="operadora.nome group by operadora.categoria for operadora in operadoras"
           ng-required="true">
           <option value="">Selecione uma operadora</option>
         </select>
+        <div ng-show="contatoForm.nome.$invalid" class="alert alert-danger">
+          Por favor, preencha campo nome.
+        </div>
+        <div ng-show="contatoForm.telefone.$invalid" class="alert alert-danger">
+          Por favor, preencha campo telefone.
+        </div>
+        <div ng-show="contatoForm.opcao.$invalid" class="alert alert-danger">
+          Por favor, selecione a operadora.
+        </div>
         <button class="btn btn-primary btn-block" ng-disabled="contatoForm.$invalid" ng-click="adicionarContato(contato)">Adicionar Contato</button>
         <button class="btn btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="deletarContato(contatos)">Remover Selecionados</button>
       </form>
