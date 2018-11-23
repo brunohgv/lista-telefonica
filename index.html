@@ -22,14 +22,14 @@
         <thead>
           <tr>
             <th></th>
-            <th>Nome</th>
+            <th><a ng-click="ordenarPor('nome')">Nome</a></th>
             <th>Telefone</th>
-            <th>Operadora</th>
+            <th><a ng-click="ordenarPor('operadora.nome')">Operadora</a></th>
             <th>Data</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: stringDeBusca}">
+          <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: stringDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
             <td><input type="checkbox" ng-model="contato.selecionado"></td>
             <td>{{contato.nome}}</td>
             <td>{{contato.telefone}}</td>

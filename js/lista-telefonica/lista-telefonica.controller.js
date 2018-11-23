@@ -40,4 +40,9 @@ angular
     })
   }
 
+  $scope.ordenarPor = function(campo) {
+    $scope.criterioDeOrdenacao = campo
+    $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao
+  }
+
 })
