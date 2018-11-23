@@ -33,4 +33,10 @@ angular
     })
   }
 
+  $scope.isContatoSelecionado = function (contatos) {
+    return contatos.some(contato => {
+      return contato.selecionado
+    })
+  }
+
 })
