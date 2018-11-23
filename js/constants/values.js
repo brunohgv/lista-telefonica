@@ -1,5 +1,5 @@
 angular
 .module("listaTelefonica")
-.value("config", {
+.constant("config", {
   baseUrl: "http://localhost:3412"
 })
