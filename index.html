@@ -18,14 +18,18 @@
     <div class="jumbotron">
       <h2 ng-bind="titulo"></h2>
       <table class="table table-striped">
-        <tr>
-          <th>Nome</th>
-          <th>Telefone</th>
-        </tr>
-        <tr ng-repeat="contato in contatos">
-          <th>{{contato.nome}}</th>
-          <th>{{contato.telefone}}</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="contato in contatos">
+            <td>{{contato.nome}}</td>
+            <td>{{contato.telefone}}</td>
+          </tr>
+        </tbody>
       </table>
       <form ng-enter="adicionarContato(contato)">
         <input 
