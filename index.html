@@ -22,15 +22,18 @@
           <tr>
             <th>Nome</th>
             <th>Telefone</th>
+            <th>Operadora</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="contato in contatos">
             <td>{{contato.nome}}</td>
             <td>{{contato.telefone}}</td>
+            <td>{{contato.operadora.nome}}</td>
           </tr>
         </tbody>
       </table>
+      {{contato}}
       <form ng-enter="adicionarContato(contato)">
         <input 
           class="form form-control"
@@ -44,7 +47,13 @@
           aria-label="Input de telefone"
           placeholder="Telefone"
           ng-model="contato.telefone">
-        <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar</button>
+        <select
+          class="form form-control"
+          ng-model="contato.operadora"
+          ng-options="operadora.nome for operadora in operadoras">
+          <option value="">Selecione uma operadora</option>
+        </select>
+        <button class="btn btn-primary btn-block" ng-disabled="false" ng-click="adicionarContato(contato)">Adicionar</button>
       </form>
 
     </div>
