@@ -24,6 +24,7 @@
             <th>Nome</th>
             <th>Telefone</th>
             <th>Operadora</th>
+            <th>Data</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +32,8 @@
             <td><input type="checkbox" ng-model="contato.selecionado"></td>
             <td>{{contato.nome}}</td>
             <td>{{contato.telefone}}</td>
-            <td>{{contato.operadora.nome}}</td>
+            <td>{{contato.operadora.nome | uppercase}}</td>
+            <td>{{contato.data | date:'dd/MM/yyyy'}}</td>
           </tr>
         </tbody>
       </table>

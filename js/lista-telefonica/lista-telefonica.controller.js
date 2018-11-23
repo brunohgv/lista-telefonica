@@ -4,10 +4,10 @@ angular
   $scope.titulo = "Lista Telefônica"
 
   $scope.contatos = [
-    {nome: "Bruno", telefone: "99997777"},
-    {nome: "Adriana", telefone: "98984545"},
-    {nome: "Adalberto", telefone: "99887878"},
-    {nome: "Björn", telefone: "98698745"},
+    {nome: "Bruno", telefone: "99997777", data: new Date(), operadora: {nome: "Oi", codigo: 31, categoria: "Celular"}},
+    {nome: "Adriana", telefone: "98984545", data: new Date(), operadora: {nome: "NET", codigo: 21, categoria: "Fixo"}},
+    {nome: "Adalberto", telefone: "99887878", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}},
+    {nome: "Björn", telefone: "98698745", data: new Date(), operadora: {nome: "Oi", codigo: 31, categoria: "Celular"}},
   ]
 
   $scope.operadoras = [
