@@ -18,6 +18,7 @@
     <div class="jumbotron">
       <h2 ng-bind="titulo"></h2>
       <table ng-if="contatos.length > 0" class="table">
+        <input class="form-control" aria-label="Busca de Contatos" type="text" placeholder="O que você procura?" ng-model="stringDeBusca">
         <thead>
           <tr>
             <th></th>
@@ -28,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos">
+          <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: stringDeBusca}">
             <td><input type="checkbox" ng-model="contato.selecionado"></td>
             <td>{{contato.nome}}</td>
             <td>{{contato.telefone}}</td>
