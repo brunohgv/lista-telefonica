@@ -1,6 +1,8 @@
 angular
 .module("listaTelefonica")
-.controller("novoContatoCtrl", function ($scope, $location, contatosAPI, operadorasAPI, serialGenerator) {
+.controller("novoContatoCtrl", function ($scope, $location, contatosAPI, operadoras, serialGenerator) {
+
+  $scope.operadoras = operadoras.data
 
   $scope.adicionarContato = function (contato) {
     contato.serial = serialGenerator.generate()
@@ -15,18 +17,5 @@ angular
         $scope.erro = err.status + ": " + err.statusText
       })
   }
-
-  const carregarOperadoras = function () {
-    operadorasAPI.getOperadoras()
-      .then(response => {
-        $scope.operadoras = response.data
-      })
-      .catch(err => {
-        // alert("Erro " + error.status + ": " + error.statusText)
-        $scope.erroOperadoras = err.status + ": " + err.statusText
-      })
-  }
-
-  carregarOperadoras()
 
 })
