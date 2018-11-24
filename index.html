@@ -7,94 +7,23 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="styles/ui.css">
-  <script src="node_modules/angular/angular.min.js"></script>
-
-  <script src="js/util/serial-generator/serialGenerator.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+  <script src="node_modules/angular-route/angular-route.min.js"></script>
+  
   <script src="js/app.js"></script>
+  <script src="js/util/serial-generator/serialGenerator.js"></script>
   <script src="js/lista-telefonica/lista-telefonica.controller.js"></script>
+  <script src="js/lista-telefonica/novo-contato/novo-contato.controller.js"></script>
   <script src="js/lista-telefonica/contato/contato.factory.js"></script>
   <script src="js/lista-telefonica/operadoras/operadoras.service.js"></script>
   <script src="js/constants/values.js"></script>
   <script src="js/ui-alert/ui-alert.directive.js"></script>
+  <script src="js/route-config.js"></script>
   <title>Document</title>
 </head>
 <body>
 
-  <div ng-controller="listaTelefonicaCtrl">
-    <div class="jumbotron">
-      <table ng-if="contatos.length > 0" class="table">
-        <h2 ng-bind="titulo" class="mb-2"></h2>
-
-        <ui-alert ng-if="erroContatos" title="Ops, aconteceu um problema!" subtitle="Isso é bem triste">
-          {{erroContatos}}
-        </ui-alert>
-        
-        <input class="form-control" aria-label="Busca de Contatos" type="text" placeholder="O que você procura?" ng-model="stringDeBusca">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Serial</th>
-            <th><a ng-click="ordenarPor('nome')">Nome</a></th>
-            <th>Telefone</th>
-            <th><a ng-click="ordenarPor('operadora.nome')">Operadora</a></th>
-            <th>Data</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: stringDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-            <td><input type="checkbox" ng-model="contato.selecionado"></td>
-            <td>{{contato.serial}}</td>
-            <td>{{contato.nome}}</td>
-            <td>{{contato.telefone}}</td>
-            <td>{{contato.operadora.nome | uppercase}}</td>
-            <td>{{contato.data | date:'dd/MM/yyyy'}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <form name="contatoForm" ng-enter="adicionarContato(contato)">
-        <input 
-          class="form-control"
-          type="text"
-          aria-label="Input de nome"
-          placeholder="Nome"
-          ng-model="contato.nome"
-          name="nome"
-          ng-required="true">
-        <input
-          class="form-control"
-          type="text"
-          aria-label="Input de telefone"
-          placeholder="Telefone"
-          ng-model="contato.telefone"
-          name="telefone"
-          ng-required="true"
-          ng-pattern="/^\d{4,5}-\d{4}$/">
-        <select
-          class="form-control"
-          ng-model="contato.operadora"
-          name="opcao"
-          ng-options="operadora.nome group by operadora.categoria for operadora in operadoras"
-          ng-required="true">
-          <option value="">Selecione uma operadora</option>
-        </select>
-        <div ng-if="contatoForm.nome.$invalid && contatoForm.nome.$dirty" class="alert alert-danger">
-          Por favor, preencha campo nome.
-        </div>
-        <div ng-if="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
-          Por favor, preencha campo telefone.
-        </div>
-        <div ng-if="contatoForm.telefone.$error.pattern" class="alert alert-danger">
-          O campo telefone deve ter formato 00000-0000
-        </div>
-        <div ng-if="contatoForm.opcao.$invalid && contatoForm.opcao.$dirty" class="alert alert-danger">
-          Por favor, selecione a operadora.
-        </div>
-        <button class="btn btn-primary btn-block" ng-disabled="contatoForm.$invalid" ng-click="adicionarContato(contato)">Adicionar Contato</button>
-        <button class="btn btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="deletarContato(contatos)">Remover Selecionados</button>
-      </form>
-
-    </div>
-  </div>
+  <div ng-view></div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
