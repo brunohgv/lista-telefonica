@@ -10,21 +10,32 @@
   <script src="node_modules/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.min.js"></script>
   
-  <script src="js/app.js"></script>
-  <script src="js/util/serial-generator/serialGenerator.js"></script>
-  <script src="js/lista-telefonica/lista-telefonica.controller.js"></script>
-  <script src="js/lista-telefonica/detalhes-contato/detalhes-contato.controller.js"></script>
-  <script src="js/lista-telefonica/novo-contato/novo-contato.controller.js"></script>
-  <script src="js/lista-telefonica/services/contato/contato.factory.js"></script>
-  <script src="js/lista-telefonica/services/operadoras/operadoras.service.js"></script>
-  <script src="js/constants/values.js"></script>
-  <script src="js/ui-alert/ui-alert.directive.js"></script>
-  <script src="js/route-config.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/util/serial-generator/serialGenerator.js"></script>
+  <script src="app/lista-telefonica/lista-telefonica.controller.js"></script>
+  <script src="app/lista-telefonica/detalhes-contato/detalhes-contato.controller.js"></script>
+  <script src="app/lista-telefonica/novo-contato/novo-contato.controller.js"></script>
+  <script src="app/lista-telefonica/services/contato/contato.factory.js"></script>
+  <script src="app/lista-telefonica/services/operadoras/operadoras.service.js"></script>
+  <script src="app/constants/values.js"></script>
+  <script src="app/ui-alert/ui-alert.directive.js"></script>
+  <script src="app/route-config.js"></script>
+  <script src="app/interceptors/timestamp-interceptor.js"></script>
+  <script src="app/interceptors/interceptors.config.js"></script>
+  <script src="app/interceptors/error-interceptor.js"></script>
+  <script src="app/interceptors/load-interceptor.js"></script>
   <title>Lista Telefônica</title>
 </head>
 <body>
 
-  <div ng-view></div>
+  <div ng-show="loading">
+    <div class="jumbotron">
+      <h5>Carregando. Por favor, aguarde...</h5>
+    </div>
+  </div>
+  <div ng-hide="loading">
+    <div ng-view></div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

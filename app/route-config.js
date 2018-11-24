@@ -3,11 +3,11 @@ angular
 .config(function ($routeProvider){
   $routeProvider
     .when("/contatos", {
-      templateUrl: "js/lista-telefonica/lista-telefonica.template.html",
+      templateUrl: "app/lista-telefonica/lista-telefonica.template.html",
       controller: "listaTelefonicaCtrl"
     })
     .when("/novocontato", {
-      templateUrl: "js/lista-telefonica/novo-contato/novo-contato.template.html",
+      templateUrl: "app/lista-telefonica/novo-contato/novo-contato.template.html",
       controller: "novoContatoCtrl",
       resolve: {
         operadoras: function (operadorasAPI) {
@@ -16,13 +16,16 @@ angular
       }
     })
     .when("/contato/:id", {
-      templateUrl: "js/lista-telefonica/detalhes-contato/detalhes-contato.template.html",
+      templateUrl: "app/lista-telefonica/detalhes-contato/detalhes-contato.template.html",
       controller: "detalhesContatoCtrl",
       resolve: {
         contato: function (contatosAPI, $route) {
           return contatosAPI.getContato($route.current.params.id)
         }
       }
+    })
+    .when("/erro", {
+      templateUrl: "app/views/erro.html"
     })
     .otherwise('/contatos')
 })
