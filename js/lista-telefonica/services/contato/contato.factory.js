@@ -9,8 +9,13 @@ angular
     return $http.post(config.baseUrl + "/contatos", contato)
   }
 
+  var _getContato = function (id) {
+    return $http.get(config.baseUrl + "/contatos/" + id)
+  }
+
   return {
     getContatos: _getContatos,
-    salvarContato: _salvarContato
+    salvarContato: _salvarContato,
+    getContato: _getContato
   }
 })

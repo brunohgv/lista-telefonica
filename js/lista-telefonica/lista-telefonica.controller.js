@@ -1,6 +1,6 @@
 angular
 .module("listaTelefonica")
-.controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI, serialGenerator) {
+.controller("listaTelefonicaCtrl", function ($scope, contatosAPI) {
   $scope.titulo = "Lista Telefônica"
 
   $scope.contatos = []
@@ -8,20 +8,6 @@ angular
   $scope.operadoras = []
 
   $scope.classeSelecionado = "selecionado"
-
-  $scope.adicionarContato = function (contato) {
-    contato.serial = serialGenerator.generate()
-    contato.data = new Date()
-    contatosAPI.salvarContato(contato)
-      .then(() => {
-        carregarContatos()
-        delete $scope.contato
-        $scope.contatoForm.$setPristine()
-      })
-      .catch(err => {
-        $scope.erro = err.status + ": " + err.statusText
-      })
-  }
 
   $scope.deletarContato = function (contatos) {
     $scope.contatos = contatos.filter(contato => {
@@ -52,18 +38,5 @@ angular
       })
   }
 
-  const carregarOperadoras = function () {
-    operadorasAPI.getOperadoras()
-      .then(response => {
-        $scope.operadoras = response.data
-      })
-      .catch(err => {
-        // alert("Erro " + error.status + ": " + error.statusText)
-        $scope.erroOperadoras = err.status + ": " + err.statusText
-      })
-  }
-
   carregarContatos();
-  carregarOperadoras();
-
 })

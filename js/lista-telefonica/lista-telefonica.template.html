@@ -1,0 +1,35 @@
+<div>
+  <div class="jumbotron">
+    <table ng-if="contatos.length > 0" class="table">
+      <h2 ng-bind="titulo" class="mb-2"></h2>
+
+      <ui-alert ng-if="erroContatos" title="Ops, aconteceu um problema!" subtitle="Isso é bem triste">
+        {{erroContatos}}
+      </ui-alert>
+      
+      <input class="form-control" aria-label="Busca de Contatos" type="text" placeholder="O que você procura?" ng-model="stringDeBusca">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Serial</th>
+          <th><a ng-click="ordenarPor('nome')">Nome</a></th>
+          <th>Telefone</th>
+          <th><a ng-click="ordenarPor('operadora.nome')">Operadora</a></th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: stringDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+          <td><input type="checkbox" ng-model="contato.selecionado"></td>
+          <td>{{contato.serial}}</td>
+          <td><a href="#!/contato/{{contato.id}}">{{contato.nome}}</a></td>
+          <td>{{contato.telefone}}</td>
+          <td>{{contato.operadora.nome | uppercase}}</td>
+          <td>{{contato.data | date:'dd/MM/yyyy'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-danger btn-block" ng-if="isContatoSelecionado(contatos)" ng-click="deletarContato(contatos)">Remover Selecionados</button>
+    <a href="#!/novocontato" class="btn btn-primary btn-block">Novo Contato</a>
+  </div>
+</div>
